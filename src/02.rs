@@ -13,11 +13,13 @@ fn main() {
     // [Before] map: {2: [1, 2, 3], 4: [2, 4, 6], 6: [3, 6, 9], 8: [4, 8, 12], 10: [5, 10, 15]}
 
     // Replacing procedure
-    // You'll encounter a compile error at line 19
+    // Replacing procedure
     for i in 1..=5 {
         let idx = 2 * i - 1;
-        if let Some((&key, &value)) = map.range((idx)..).next() {
-            map.insert(i, value);
+        if let Some((&key, value)) = map.range_mut((idx)..).next() {
+            &value.push(4);
+            let val = value.clone();
+            map.insert(idx, val);
             map.remove(&key);
         }
     }
